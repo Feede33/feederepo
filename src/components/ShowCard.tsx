@@ -205,16 +205,7 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, isExploreView = false }) => {
                 </div>
               )}
               
-              <button 
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  window.location.href = `/show/${show.id}`;
-                }}
-                className="btn-primary text-sm mt-4"
-              >
-                Ver Ahora
-              </button>
+
             </div>
           </div>
         </div>
