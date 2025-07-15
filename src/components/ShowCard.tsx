@@ -105,44 +105,48 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, isExploreView = false }) => {
             </div>
           </div>
           
-          {/* Content Overlay - Desktop Only */}
-          <div className="absolute inset-x-0 bottom-0 p-6 z-10 hidden md:block">
-            {/* Title and Info */}
-            <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-              <h3 className="text-white text-xl font-bold mb-2 line-clamp-2 drop-shadow-lg">
-                {show.title}
-              </h3>
+          {/* Unified Content Overlay - Desktop Only */}
+          <div 
+            className={`absolute inset-0 bg-black/80 flex-col justify-center items-center p-5 text-center transition-all duration-300 ease-in-out hidden md:flex md:opacity-0 md:group-hover:opacity-100 pointer-events-none md:pointer-events-auto ${isHovered ? 'md:backdrop-blur-md' : ''
+            }`}>
+            <div className="space-y-3 transform scale-90 group-hover:scale-100 transition-transform duration-300 ease-in-out delay-100 w-full">
+              <h3 className="text-white text-2xl font-bold line-clamp-2 drop-shadow-lg">{show.title}</h3>
               
-              {/* Additional Info - Hidden by default, shown on hover */}
-              <div className="space-y-3 opacity-0 group-hover:opacity-100 transition-all duration-300 delay-75">
-                {show.genre && (
-                  <p className="text-gray-300 text-sm line-clamp-2">
-                    {Array.isArray(show.genre) ? show.genre.join(' • ') : show.genre}
-                  </p>
+              <div className="flex items-center justify-center space-x-3 text-sm">
+                <div className="flex items-center space-x-1">
+                  <StarIcon className="w-4 h-4 text-yellow-400" />
+                  <span className="text-white font-semibold">{show.rating.toFixed(1)}</span>
+                </div>
+                {show.year && (
+                  <>
+                    <span className="text-gray-400">•</span>
+                    <span className="text-gray-300">{show.year}</span>
+                  </>
                 )}
-                
-                {/* Action Buttons */}
-                <div className="flex items-center space-x-2 pt-2">
-                  <button 
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      window.location.href = `/show/${show.id}`;
-                    }}
-                    className="flex-1 bg-white text-black font-bold py-2.5 px-4 rounded-xl hover:bg-gray-100 transition-all transform hover:scale-105"
-                  >
-                    <span className="flex items-center justify-center space-x-2">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-                      </svg>
-                      <span>Ver</span>
+              </div>
+              
+              {show.genre && (
+                <div className="flex flex-wrap justify-center gap-x-2 gap-y-1">
+                  {(Array.isArray(show.genre) ? show.genre : [show.genre]).slice(0, 3).map((g) => (
+                    <span key={g} className="text-gray-300 text-xs">
+                      {g}
                     </span>
-                  </button>
-                  
+                  ))}
+                </div>
+              )}
+
+              <div className="pt-3 w-full max-w-[90%] mx-auto">
+                <div className="flex items-center space-x-2">
+                  <Link
+                    to={`/show/${show.id}`}
+                    className="flex-1 btn-primary py-2.5 font-semibold text-white rounded-lg transition-all transform hover:scale-105 flex items-center justify-center space-x-2"
+                  >
+                    <span>Ver Ahora</span>
+                  </Link>
+
                   <button 
                     onClick={handleFavoriteClick}
-                    className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all transform hover:scale-110 ${
-                      isFavorite 
+                    className={`w-11 h-11 flex-shrink-0 rounded-lg flex items-center justify-center transition-all transform hover:scale-110 ${isFavorite 
                         ? 'bg-gradient-to-r from-pink-500 to-red-500 text-white' 
                         : 'glass-dark text-white hover:bg-white/20'
                     }`}
@@ -154,8 +158,7 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, isExploreView = false }) => {
                   
                   <button 
                     onClick={handleWatchlistClick}
-                    className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all transform hover:scale-110 ${
-                      isInWatchList 
+                    className={`w-11 h-11 flex-shrink-0 rounded-lg flex items-center justify-center transition-all transform hover:scale-110 ${isInWatchList 
                         ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white' 
                         : 'glass-dark text-white hover:bg-white/20'
                     }`}
@@ -169,60 +172,18 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, isExploreView = false }) => {
             </div>
           </div>
           
-          {/* Quick Preview on Hover - Desktop Only */}
-          <div className={`absolute inset-0 bg-black/95 flex flex-col justify-center items-center p-6 transition-all duration-300 md:opacity-0 md:group-hover:opacity-100 pointer-events-none md:pointer-events-auto ${
-            isHovered ? 'md:backdrop-blur-sm' : ''
-          }`}>
-            <div className="text-center space-y-4 transform scale-95 group-hover:scale-100 transition-transform duration-300">
-              <h3 className="text-white text-2xl font-bold">{show.title}</h3>
-              
-              <div className="flex items-center justify-center space-x-4 text-sm">
-                <div className="flex items-center space-x-1">
-                  <StarIcon className="w-5 h-5 text-yellow-400" />
-                  <span className="text-white font-medium">{show.rating.toFixed(1)}</span>
-                </div>
-                {show.year && (
-                  <>
-                    <span className="text-gray-400">•</span>
-                    <span className="text-gray-300">{show.year}</span>
-                  </>
-                )}
-                {show.episodes && (
-                  <>
-                    <span className="text-gray-400">•</span>
-                    <span className="text-gray-300">{show.episodes} episodios</span>
-                  </>
-                )}
+          {/* Mobile-only bottom info */}
+          <div className="md:hidden mt-3 px-1">
+            <h3 className="text-white font-semibold text-base line-clamp-1">{show.title}</h3>
+            <div className="flex items-center space-x-2 mt-1">
+              <div className="flex items-center space-x-1">
+                <StarIcon className="w-4 h-4 text-yellow-400" />
+                <span className="text-gray-400 text-sm">{show.rating.toFixed(1)}</span>
               </div>
-              
-              {show.genre && (
-                <div className="flex flex-wrap justify-center gap-2">
-                  {(Array.isArray(show.genre) ? show.genre : [show.genre]).slice(0, 3).map((g, i) => (
-                    <span key={i} className="badge glass text-white text-xs">
-                      {g}
-                    </span>
-                  ))}
-                </div>
+              {show.year && (
+                <span className="text-gray-500 text-sm">• {show.year}</span>
               )}
-              
-              <button 
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  window.location.href = `/show/${show.id}`;
-                }}
-                className="btn-primary text-sm mt-4"
-              >
-                Ver Ahora
-              </button>
             </div>
-          </div>
-        </div>
-        
-        {/* Mobile-only bottom info */}
-        <div className="md:hidden mt-3 px-1">
-          <h3 className="text-white font-semibold text-base line-clamp-1">{show.title}</h3>
-          <div className="flex items-center space-x-2 mt-1">
             <div className="flex items-center space-x-1">
               <StarIcon className="w-4 h-4 text-yellow-400" />
               <span className="text-gray-400 text-sm">{show.rating.toFixed(1)}</span>
