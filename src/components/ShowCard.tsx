@@ -170,20 +170,15 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, isExploreView = false }) => {
           </div>
           
           {/* Quick Preview on Hover - Desktop Only */}
-          <div className={`absolute inset-0 bg-black/95 flex flex-col justify-center items-center p-6 transition-all duration-300 md:opacity-0 md:group-hover:opacity-100 pointer-events-none md:pointer-events-auto ${
+          <div className={`absolute inset-0 bg-black/60 flex flex-col justify-center items-center p-6 transition-all duration-300 md:opacity-0 md:group-hover:opacity-100 pointer-events-none md:pointer-events-auto ${
             isHovered ? 'md:backdrop-blur-sm' : ''
           }`}>
             <div className="text-center space-y-4 transform scale-95 group-hover:scale-100 transition-transform duration-300">
-              <h3 className="text-white text-2xl font-bold">{show.title}</h3>
+              {/* Título y rating eliminados */}
               
               <div className="flex items-center justify-center space-x-4 text-sm">
-                <div className="flex items-center space-x-1">
-                  <StarIcon className="w-5 h-5 text-yellow-400" />
-                  <span className="text-white font-medium">{show.rating.toFixed(1)}</span>
-                </div>
                 {show.year && (
                   <>
-                    <span className="text-gray-400">•</span>
                     <span className="text-gray-300">{show.year}</span>
                   </>
                 )}
@@ -194,6 +189,8 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, isExploreView = false }) => {
                   </>
                 )}
               </div>
+
+              {/* Botón "Ver Ahora" eliminado */}
               
               {show.genre && (
                 <div className="flex flex-wrap justify-center gap-2">
