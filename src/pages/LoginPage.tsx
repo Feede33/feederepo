@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { signIn, signInWithGoogle } from '@/services/authService';
+import { useAppContext } from '@/context/AppContext';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -8,6 +9,14 @@ const LoginPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { user } = useAppContext();
+
+  useEffect(() => {
+    // If user is logged in, redirect to home
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,7 +24,7 @@ const LoginPage: React.FC = () => {
     setError(null);
     try {
       await signIn(email, password);
-      navigate('/');
+      // Navigation is now handled by the useEffect hook watching the user state.
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -28,6 +37,7 @@ const LoginPage: React.FC = () => {
     setError(null);
     try {
       await signInWithGoogle();
+      // Navigation is now handled by the useEffect hook watching the user state.
     } catch (err: any) {
       setError(err.message);
       setIsLoading(false);
