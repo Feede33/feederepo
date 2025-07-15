@@ -12,7 +12,7 @@ interface ShowCardProps {
 const ShowCard: React.FC<ShowCardProps> = ({ show, isExploreView = false }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
-  const { addToFavorites, removeFromFavorites, addToWatchlist, removeFromWatchlist, isInFavorites, isInWatchlist, addToRecentlyViewed } = useAppContext();
+  const { addFavorite, removeFavorite, addWatchlist, removeWatchlist, isInFavorites, isInWatchlist, addRecentlyViewed } = useAppContext();
   
   const isFavorite = isInFavorites(show.id);
   const isInWatchList = isInWatchlist(show.id);
@@ -21,9 +21,9 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, isExploreView = false }) => {
     e.preventDefault();
     e.stopPropagation();
     if (isFavorite) {
-      removeFromFavorites(show.id);
+      removeFavorite(show.id);
     } else {
-      addToFavorites(show);
+      addFavorite(show);
     }
   };
 
@@ -31,14 +31,14 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, isExploreView = false }) => {
     e.preventDefault();
     e.stopPropagation();
     if (isInWatchList) {
-      removeFromWatchlist(show.id);
+      removeWatchlist(show.id);
     } else {
-      addToWatchlist(show);
+      addWatchlist(show);
     }
   };
 
   const handleCardClick = () => {
-    addToRecentlyViewed(show);
+    addRecentlyViewed(show);
   };
 
   return (
@@ -105,8 +105,8 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, isExploreView = false }) => {
             </div>
           </div>
           
-          {/* Content Overlay */}
-          <div className="absolute inset-x-0 bottom-0 p-6 z-10">
+          {/* Content Overlay - Desktop Only */}
+          <div className="absolute inset-x-0 bottom-0 p-6 z-10 hidden md:block">
             {/* Title and Info */}
             <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
               <h3 className="text-white text-xl font-bold mb-2 line-clamp-2 drop-shadow-lg">

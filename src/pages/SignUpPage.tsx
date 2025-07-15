@@ -87,14 +87,14 @@ const SignUpPage: React.FC = () => {
         <div className="absolute -inset-1 bg-gradient-to-r from-pink-600 to-purple-600 rounded-3xl blur-lg opacity-30 animate-pulse-slow"></div>
         
         {/* Main Card */}
-        <div className="relative glass-dark rounded-3xl p-8 md:p-10 shadow-2xl">
+        <div className="relative glass-dark rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl">
           {/* Logo/Title */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-pink-600 to-purple-600 rounded-2xl mb-4 shadow-lg transform rotate-3 hover:rotate-0 transition-transform">
               <span className="text-3xl font-black text-white display-font">P</span>
             </div>
-            <h2 className="text-3xl font-bold text-white mb-2">Únete a Pandrama</h2>
-            <p className="text-gray-400">Crea tu cuenta y disfruta del mejor contenido</p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">Únete a Pandrama</h2>
+            <p className="text-sm sm:text-base text-gray-400">Crea tu cuenta y disfruta del mejor contenido</p>
           </div>
 
           {/* Error Message */}

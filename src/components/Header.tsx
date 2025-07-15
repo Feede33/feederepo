@@ -8,7 +8,7 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
-  const { user, logOut } = useAppContext();
+  const { user, logout } = useAppContext();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -22,7 +22,7 @@ const Header: React.FC = () => {
 
   const handleLogout = async () => {
     try {
-      await logOut();
+      await logout();
       navigate('/');
     } catch (error) {
       console.error('Logout failed:', error);
@@ -69,7 +69,7 @@ const Header: React.FC = () => {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled ? 'glass-dark shadow-2xl' : 'bg-transparent'
     }`}>
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-4 sm:px-6 py-4">
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-8">
             {/* Logo */}
@@ -83,7 +83,7 @@ const Header: React.FC = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-1">
+            <nav className="hidden md:flex items-center space-x-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
@@ -200,7 +200,7 @@ const Header: React.FC = () => {
             {/* Mobile Menu Button */}
             <button 
               onClick={toggleMenu} 
-              className="lg:hidden glass p-2 rounded-lg"
+              className="md:hidden glass p-2 rounded-lg"
             >
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isMenuOpen ? (
@@ -215,7 +215,7 @@ const Header: React.FC = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div ref={menuRef} className="lg:hidden mt-4 glass rounded-2xl p-4">
+          <div ref={menuRef} className="md:hidden mt-4 glass rounded-2xl p-4">
             {/* Mobile Search */}
             <div className="relative mb-4">
               <input
