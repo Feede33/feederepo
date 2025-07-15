@@ -1,22 +1,22 @@
 import { createContext, useState, useContext, useEffect, ReactNode } from "react";
-import { onAuthStateChange, logOut as firebaseLogout } from "../services/authService";
+import { onAuthStateChange, logOut } from '../services/authService';
 import { Show, User } from "../types";
 
 interface AppContextType {
   favorites: Show[];
   watchlist: Show[];
   recentlyViewed: Show[];
-  addToFavorites: (show: Show) => void;
-  removeFromFavorites: (id: number) => void;
-  addToWatchlist: (show: Show) => void;
-  removeFromWatchlist: (id: number) => void;
-  addToRecentlyViewed: (show: Show) => void;
+  logout: () => Promise<void>;
+  addFavorite: (show: Show) => void;
+  removeFavorite: (showId: number) => void;
+  addWatchlist: (show: Show) => void;
+  removeWatchlist: (showId: number) => void;
+  addRecentlyViewed: (show: Show) => void;
   clearRecentlyViewed: () => void;
   isInFavorites: (id: number) => boolean;
   isInWatchlist: (id: number) => boolean;
   user: User | null;
   loading: boolean;
-  logOut: () => Promise<void>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -38,25 +38,25 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     return unsubscribe;
   }, []);
 
-  const addToFavorites = (show: Show) => {
+  const addFavorite = (show: Show) => {
     setFavorites((prev) => {
       if (prev.some((s) => s.id === show.id)) return prev;
       return [...prev, show];
     });
   };
 
-  const removeFromFavorites = (id: number) => {
+  const removeFavorite = (id: number) => {
     setFavorites((prev) => prev.filter((show) => show.id !== id));
   };
 
-  const addToWatchlist = (show: Show) => {
+  const addWatchlist = (show: Show) => {
     setWatchlist((prev) => {
       if (prev.some((s) => s.id === show.id)) return prev;
       return [...prev, show];
     });
   };
 
-  const removeFromWatchlist = (id: number) => {
+  const removeWatchlist = (id: number) => {
     setWatchlist((prev) => prev.filter((show) => show.id !== id));
   };
 
@@ -68,7 +68,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     return watchlist.some((show) => show.id === id);
   };
 
-  const addToRecentlyViewed = (show: Show) => {
+  const addRecentlyViewed = (show: Show) => {
     setRecentlyViewed((prev) => {
       const filtered = prev.filter((s) => s.id !== show.id);
       return [show, ...filtered].slice(0, 10);
@@ -79,13 +79,13 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setRecentlyViewed([]);
   };
 
-  const logOut = async () => {
+  const logout = async () => {
     try {
-      await firebaseLogout();
-      // You could clear user-specific data here if needed
+      await logOut();
+      // El estado del usuario se actualizará automáticamente a través del listener onAuthStateChange
     } catch (error) {
-      console.error("Logout error:", error);
-      throw error;
+      console.error("Error al cerrar sesión:", error);
+      // Opcional: manejar el error en la UI
     }
   };
 
@@ -95,17 +95,17 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         favorites,
         watchlist,
         recentlyViewed,
-        addToFavorites,
-        removeFromFavorites,
-        addToWatchlist,
-        removeFromWatchlist,
-        addToRecentlyViewed,
+        logout,
+        addFavorite,
+        removeFavorite,
+        addWatchlist,
+        removeWatchlist,
+        addRecentlyViewed,
         clearRecentlyViewed,
         isInFavorites,
         isInWatchlist,
         user,
-        loading,
-        logOut
+        loading
       }}
     >
       {children}

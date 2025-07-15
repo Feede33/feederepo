@@ -7,7 +7,7 @@ import ProfileEdit from '../components/ProfileEdit';
 import { getUserProfileData, UserProfile } from '../services/userService';
 
 const Profile: React.FC = () => {
-  const { favorites, watchlist, recentlyViewed, clearRecentlyViewed, user } = useAppContext();
+  const { favorites, watchlist, recentlyViewed, clearRecentlyViewed, user, logout } = useAppContext();
   const [activeTab, setActiveTab] = useState<'favorites' | 'watchlist' | 'history' | 'stats' | 'achievements'>('favorites');
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [profileData, setProfileData] = useState<UserProfile | null>(null);
@@ -189,15 +189,21 @@ const Profile: React.FC = () => {
                 </div>
               )}
             </div>
-            <div className="md:ml-auto">
+            <div className="md:ml-auto mt-4 sm:mt-0 flex items-center space-x-3">
               <button 
                 onClick={() => setIsEditProfileOpen(true)}
-                className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
+                className="px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white font-medium rounded-lg transition-colors"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                Editar Perfil
+              </button>
+              <button
+                onClick={logout}
+                className="p-2 bg-gray-800 hover:bg-red-600/50 rounded-full text-gray-400 hover:text-white transition-colors"
+                title="Cerrar Sesión"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
-                Editar perfil
               </button>
             </div>
           </div>
