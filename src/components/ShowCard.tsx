@@ -67,7 +67,9 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, isExploreView = false }) => {
             className={`w-full h-full object-cover transition-all duration-700 ${imageLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'} group-hover:scale-110`}
             onLoad={() => setImageLoaded(true)}
             onError={(e) => {
-              e.currentTarget.src = '/placeholder.svg';
+              const target = e.target as HTMLImageElement;
+              target.src = '/placeholder-image.jpg';
+              target.alt = `Imagen no disponible para ${show.title}`;
             }}
           />
           
@@ -127,8 +129,10 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, isExploreView = false }) => {
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
+                      addRecentlyViewed(show);
                       window.location.href = `/show/${show.id}`;
                     }}
+                    aria-label={`Ver detalles de ${show.title}`}
                     className="flex-1 bg-white text-black font-bold py-2.5 px-4 rounded-xl hover:bg-gray-100 transition-all transform hover:scale-105"
                   >
                     <span className="flex items-center justify-center space-x-2">
@@ -141,6 +145,7 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, isExploreView = false }) => {
                   
                   <button 
                     onClick={handleFavoriteClick}
+                    aria-label={isFavorite ? `Quitar ${show.title} de favoritos` : `Agregar ${show.title} a favoritos`}
                     className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all transform hover:scale-110 ${
                       isFavorite 
                         ? 'bg-gradient-to-r from-pink-500 to-red-500 text-white' 
@@ -154,6 +159,7 @@ const ShowCard: React.FC<ShowCardProps> = ({ show, isExploreView = false }) => {
                   
                   <button 
                     onClick={handleWatchlistClick}
+                    aria-label={isInWatchList ? `Quitar ${show.title} de la lista de seguimiento` : `Agregar ${show.title} a la lista de seguimiento`}
                     className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all transform hover:scale-110 ${
                       isInWatchList 
                         ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white' 
