@@ -22,7 +22,7 @@ const Rankings: React.FC = () => {
     <div className="min-h-screen bg-[#101010] text-white">
       <div className="container mx-auto px-4 md:px-12 py-12">
         <h1 className="text-4xl font-bold mb-2 text-center">Rankings de Dramas</h1>
-        <p className="text-gray-400 text-center mb-8">Los dramas mejor calificados por la comunidad.</p>
+        <p className="text-gray-400 text-center mb-8">Los dramas mejor calificados.</p>
 
         <div className="flex justify-center mb-8">
           {(['Top Histórico', 'Más Populares del Mes'] as RankCategory[]).map(category => (
@@ -67,4 +67,4 @@ const Rankings: React.FC = () => {
   );
 };
 
-export default Rankings; 
+export default Rankings;

@@ -8,7 +8,7 @@ import ExplorePage from './pages/Explore';
 import News from './pages/News';
 import Actors from './pages/Actors';
 import Rankings from './pages/Rankings';
-import Community from './pages/Community';
+
 import Calendar from './pages/Calendar';
 import Support from './pages/Support';
 import ShowDetail from './pages/ShowDetail';
@@ -85,7 +85,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/news" element={<PageWrapper><News /></PageWrapper>} />
       <Route path="/actors" element={<PageWrapper><Actors /></PageWrapper>} />
       <Route path="/rankings" element={<PageWrapper><Rankings /></PageWrapper>} />
-      <Route path="/community" element={<PageWrapper><Community /></PageWrapper>} />
+
       <Route path="/calendar" element={<PageWrapper><Calendar /></PageWrapper>} />
       <Route path="/support" element={<PageWrapper><Support /></PageWrapper>} />
       <Route path="/show/:id" element={<ProtectedRoute><PageWrapper><ShowDetail /></PageWrapper></ProtectedRoute>} />

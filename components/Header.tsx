@@ -43,7 +43,7 @@ const Header: React.FC = () => {
             </button>
             {isDropdownOpen && (
               <div className="absolute top-full mt-2 w-40 bg-[#181818] rounded-md shadow-lg py-1">
-                <RouterNavLink to="/community" className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Comunidad</RouterNavLink>
+
                 <RouterNavLink to="/calendar" className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Calendario</RouterNavLink>
                 <RouterNavLink to="/support" className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Soporte</RouterNavLink>
               </div>

@@ -62,7 +62,6 @@ const Header: React.FC = () => {
     { path: '/calendar', label: 'Calendario', icon: '📅' },
     { path: '/actors', label: 'Actores', icon: '⭐' },
     { path: '/news', label: 'Noticias', icon: '📰' },
-    { path: '/community', label: 'Comunidad', icon: '👥' },
   ];
 
   return (
