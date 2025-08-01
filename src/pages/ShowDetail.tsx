@@ -1,27 +1,52 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useAppContext } from '@/context/AppContext';
-import { trendingShows } from '@/constants';
+import { 
+  trendingShows, 
+  movieShows, 
+  dramaShows, 
+  airingNowShows, 
+  animeShows, 
+  spanishDubbedShows, 
+  liveActionShows, 
+  koreaShows, 
+  chinaShows, 
+  thailandShows, 
+  japanShows, 
+  classicShows 
+} from '@/constants';
 import Footer from '@/components/Footer';
 import ShowDetailHero from '@/components/ShowDetailHero';
 import EpisodeList from '@/components/EpisodeList';
 import RelatedShows from '@/components/RelatedShows';
 import { Show } from '@/types';
 
-const ShowDetail: React.FC = () => {
+const ShowDetail: React.FC = (): React.ReactElement => {
     const { id } = useParams<{ id: string }>();
-    const { 
-      addToRecentlyViewed 
-    } = useAppContext();
+    const { addRecentlyViewed } = useAppContext();
 
     const showId = parseInt(id || '0', 10);
-    const show = trendingShows.find((s: Show) => s.id === showId);
+    const allShows = [
+        ...trendingShows,
+        ...movieShows,
+        ...dramaShows,
+        ...airingNowShows,
+        ...animeShows,
+        ...spanishDubbedShows,
+        ...liveActionShows,
+        ...koreaShows,
+        ...chinaShows,
+        ...thailandShows,
+        ...japanShows,
+        ...classicShows
+    ];
+    const show = allShows.find((s: Show) => s.id === showId);
 
     React.useEffect(() => {
         if (show) {
-            addToRecentlyViewed(show);
+            addRecentlyViewed(show);
         }
-    }, [show, addToRecentlyViewed]);
+    }, [show, addRecentlyViewed]);
 
     if (!show) {
         return <div>Show not found</div>;
@@ -35,7 +60,7 @@ const ShowDetail: React.FC = () => {
         thumbnail: `https://picsum.photos/seed/${showId}-ep${i}/300/200`
     }));
 
-    const relatedShows = trendingShows.filter((s: Show) => s.id !== showId).slice(0, 5);
+    const relatedShows = allShows.filter((s: Show) => s.id !== showId).slice(0, 5);
 
     return (
         <div className="bg-[#101010] text-white">
@@ -47,4 +72,4 @@ const ShowDetail: React.FC = () => {
     );
 };
 
-export default ShowDetail; 
+export default ShowDetail;

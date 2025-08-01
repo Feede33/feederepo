@@ -47,12 +47,13 @@ const PageWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 const ProtectedRoute: React.FC<{ children: JSX.Element }> = ({ children }) => {
   const { user, loading } = useAppContext();
+  const location = useLocation();
 
   if (loading) {
     return <LoadingScreen />;
   }
 
-  return user ? children : <Navigate to="/login" />;
+  return user ? children : <Navigate to="/login" replace state={{ from: location }} />;
 };
 
 const AppRoutes: React.FC = () => {

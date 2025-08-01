@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { signIn, signInWithGoogle } from '@/services/authService';
 import { useAppContext } from '@/context/AppContext';
 
@@ -9,14 +9,17 @@ const LoginPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const { user } = useAppContext();
+  
+  const from = (location.state as any)?.from?.pathname || '/';
 
   useEffect(() => {
-    // If user is logged in, redirect to home
+    // If user is logged in, redirect to intended page or home
     if (user) {
-      navigate('/');
+      navigate(from, { replace: true });
     }
-  }, [user, navigate]);
+  }, [user, navigate, from]);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
