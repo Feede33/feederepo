@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Show } from '@/types';
 
 interface ShowDetailHeroProps {
@@ -8,9 +8,15 @@ interface ShowDetailHeroProps {
 
 const ShowDetailHero: React.FC<ShowDetailHeroProps> = ({ show }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleGoBack = () => {
-    navigate('/'); // Siempre redirige al inicio para consistencia
+    // Verificar si hay historial de navegación
+    if (window.history.length > 2) {
+      navigate(-1); // Volver a la página anterior si existe
+    } else {
+      navigate('/'); // Ir a la página principal si no hay historial
+    }
   };
 
   return (
