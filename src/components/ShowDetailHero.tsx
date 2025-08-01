@@ -11,11 +11,17 @@ const ShowDetailHero: React.FC<ShowDetailHeroProps> = ({ show }) => {
   const location = useLocation();
 
   const handleGoBack = () => {
-    // Verificar si hay historial de navegación
-    if (window.history.length > 2) {
-      navigate(-1); // Volver a la página anterior si existe
-    } else {
-      navigate('/'); // Ir a la página principal si no hay historial
+    // Intentar navegar hacia atrás usando el historial del navegador
+    // Si no hay historial suficiente, ir a la página principal
+    try {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        navigate('/');
+      }
+    } catch (error) {
+      // En caso de error, ir a la página principal
+      navigate('/');
     }
   };
 
