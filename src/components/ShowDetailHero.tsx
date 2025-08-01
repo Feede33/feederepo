@@ -10,19 +10,19 @@ const ShowDetailHero: React.FC<ShowDetailHeroProps> = ({ show }) => {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
-    navigate(-1); // Regresa a la página anterior
+    navigate('/'); // Siempre redirige al inicio para consistencia
   };
 
   return (
     <div className="relative w-full">
-      {/* Botón de retroceso */}
+      {/* Botón de retroceso mejorado */}
       <div className="absolute top-4 left-4 z-20">
         <button
           onClick={handleGoBack}
-          className="bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm border border-white/10"
+          className="bg-black/60 hover:bg-black/80 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm border border-white/20 shadow-lg"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
         </button>
       </div>
@@ -30,7 +30,7 @@ const ShowDetailHero: React.FC<ShowDetailHeroProps> = ({ show }) => {
       <div 
         className="w-full h-[50vh] bg-cover bg-center"
         style={{ 
-          backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(16,16,16,1)), url(${show.imageUrl})` 
+          backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(16,16,16,1)), url(${show.imageUrl})` 
         }}
       />
       <div className="container mx-auto px-4 -mt-32 relative z-10 flex flex-col md:flex-row">

@@ -66,10 +66,10 @@ const Footer: React.FC = () => {
               <h4 className="text-white font-bold mb-2">Descarga nuestra app</h4>
               <div className="flex space-x-2">
                 <a href="#" className="block">
-                  <img src="https://via.placeholder.com/120x40" alt="App Store" className="h-10" />
+                  <img src="https://placehold.co/120x40/333/white?text=App+Store" alt="App Store" className="h-10" />
                 </a>
                 <a href="#" className="block">
-                  <img src="https://via.placeholder.com/120x40" alt="Google Play" className="h-10" />
+                  <img src="https://placehold.co/120x40/333/white?text=Google+Play" alt="Google Play" className="h-10" />
                 </a>
               </div>
             </div>
